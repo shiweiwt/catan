@@ -26,19 +26,21 @@ function Card(props: CardProps) {
           transform: "rotateZ(30deg)",
         }}
       />
-      {props.value && (
+      {props.value > 0 && (
         <span
           style={{
             position: "absolute",
             // backgroundClip: "border-box",
+            border: "solid #b3b3b3 2px",
             borderRadius: "50%",
             backgroundColor: "#ffffff",
-            color: (props.value == 6 || props.value == 8) ? "#ff0000" : "#000000",
+            color: props.value == 6 || props.value == 8 ? "#ff0000" : "#000000",
             top: props.top + props.height / 2 - valueWidth / 2,
             left: props.left + props.width / 2 - valueWidth / 2,
+            // padding: "0.2%",
             width: valueWidth,
             height: valueWidth,
-            // padding: "5px",
+            // lineHeight: valueWidth,
           }}
         >
           {" "}

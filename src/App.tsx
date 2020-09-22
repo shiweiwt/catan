@@ -58,7 +58,6 @@ function shuffleCards() {
 
 function shuffleValues() {
   let vs: number[] = [
-    1,
     2,
     3,
     3,
@@ -74,6 +73,7 @@ function shuffleValues() {
     9,
     10,
     10,
+    11,
     11,
     12,
   ];
@@ -97,14 +97,12 @@ function App() {
       <div className="App">
         <button
           onClick={generateBoard}
-          name={"generate"}
-          value={"Generate Board"}
           style={{
-            position: "absolute",
-            width: 100,
-            height: 100,
-            top: 10,
-            left: 10,
+            display: "block",
+            // position: "fixed",
+            height: 50,
+            // top: 10,
+            // left: 10,
           }}
         >
           Genereate Board
