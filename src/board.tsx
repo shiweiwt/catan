@@ -3,7 +3,7 @@ import Card from "./card";
 
 interface BoardProps {
   cards: string[];
-  values: string[];
+  values: number[];
   top: number;
   left: number;
   cardSize: number;

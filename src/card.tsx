@@ -2,7 +2,7 @@ import React from "react";
 
 interface CardProps {
   image: string;
-  value: string;
+  value: number;
   top: number;
   left: number;
   width: number;
@@ -33,6 +33,7 @@ function Card(props: CardProps) {
             // backgroundClip: "border-box",
             borderRadius: "50%",
             backgroundColor: "#ffffff",
+            color: (props.value == 6 || props.value == 8) ? "#ff0000" : "#000000",
             top: props.top + props.height / 2 - valueWidth / 2,
             left: props.left + props.width / 2 - valueWidth / 2,
             width: valueWidth,

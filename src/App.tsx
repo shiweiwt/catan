@@ -57,35 +57,35 @@ function shuffleCards() {
 }
 
 function shuffleValues() {
-  let vs: string[] = [
-    "1",
-    "2",
-    "3",
-    "3",
-    "4",
-    "4",
-    "5",
-    "5",
-    "6",
-    "6",
-    "8",
-    "8",
-    "9",
-    "9",
-    "10",
-    "10",
-    "11",
-    "12",
+  let vs: number[] = [
+    1,
+    2,
+    3,
+    3,
+    4,
+    4,
+    5,
+    5,
+    6,
+    6,
+    8,
+    8,
+    9,
+    9,
+    10,
+    10,
+    11,
+    12,
   ];
   shuffle(vs);
-  vs = [...vs.slice(0, 9), "", ...vs.slice(9)];
+  vs = [...vs.slice(0, 9), 0, ...vs.slice(9)];
   console.log("generated cards", vs);
   return vs;
 }
 
 function App() {
   const [cards, setCards] = useState<string[]>(shuffleCards());
-  const [values, setValues] = useState<string[]>(shuffleValues());
+  const [values, setValues] = useState<number[]>(shuffleValues());
 
   let generateBoard = () => {
     setCards(shuffleCards());
