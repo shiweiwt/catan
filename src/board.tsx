@@ -106,7 +106,7 @@ function Board(props: BoardProps) {
   ];
 
   return (
-    <div style={{ display: "inline-block" }}>
+    <>
       {positions.map((p, idx) => {
         return (
           <Card
@@ -119,7 +119,7 @@ function Board(props: BoardProps) {
           />
         );
       })}
-    </div>
+    </>
   );
 }
 

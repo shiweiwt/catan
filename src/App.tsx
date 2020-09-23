@@ -95,27 +95,51 @@ function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className="App">
-        <button
-          onClick={generateBoard}
+        <div
+          className="App-header"
+          style={{ display: "block", padding: "20px", width: "100%" }}
+        >
+          Welcome to Catan
+        </div>
+        <div
           style={{
-            display: "block",
-            // position: "fixed",
-            height: 50,
-            // top: 10,
-            // left: 10,
+            alignContent: "center",
           }}
         >
-          Genereate Board
-        </button>
-        {cards && values && (
-          <Board
-            cards={cards}
-            values={values}
-            left={150}
-            top={150}
-            cardSize={150}
-          />
-        )}
+          <button
+            onClick={generateBoard}
+            style={{
+              // height: 100,
+              font: "Serif 24px bold italic",
+              padding: 10,
+              margin: 10,
+              color: "white",
+              backgroundColor: "#4a74c5",
+              borderRadius: "10px",
+            }}
+          >
+            Click here to Shuffle Board
+          </button>
+        </div>
+        <div
+          style={{
+            position: "relative",
+            border: "2px solid",
+            backgroundColor: "rgba(0,0,255,0.2)",
+            width: 700,
+            height: 640,
+          }}
+        >
+          {cards && values && (
+            <Board
+              cards={cards}
+              values={values}
+              left={0}
+              top={0}
+              cardSize={155}
+            />
+          )}
+        </div>
       </div>
     </BrowserRouter>
   );
