@@ -19,7 +19,7 @@ function Board(props: BoardProps) {
   var left = props.left;
   var cardSize = props.cardSize;
   var factor = 1.732 / 2;
-  var a = cardSize / 2;
+  var a = cardSize;
   var b = a * factor;
   var positions: Coord[] = [
     // first row
@@ -114,8 +114,8 @@ function Board(props: BoardProps) {
             value={props.values[idx]}
             top={p.top}
             left={p.left}
-            width={cardSize}
-            height={cardSize}
+            width={cardSize * 2}
+            height={cardSize * 2}
           />
         );
       })}

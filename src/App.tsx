@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Board from "./board";
+import useWindowDimensions from "./windowdimension";
 
 var brick = require("./images/brick.png");
 var desert = require("./images/desert.png");
@@ -87,10 +88,14 @@ function App() {
   const [cards, setCards] = useState<string[]>(shuffleCards());
   const [values, setValues] = useState<number[]>(shuffleValues());
 
+  const { height, width } = useWindowDimensions();
+  const cardSize = width / 9;
+
   let generateBoard = () => {
     setCards(shuffleCards());
     setValues(shuffleValues());
   };
+
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -126,8 +131,8 @@ function App() {
             position: "relative",
             border: "2px solid",
             backgroundColor: "rgba(0,0,255,0.2)",
-            width: 700,
-            height: 640,
+            width: cardSize * 9,
+            height: cardSize * 8,
           }}
         >
           {cards && values && (
@@ -136,7 +141,7 @@ function App() {
               values={values}
               left={0}
               top={0}
-              cardSize={155}
+              cardSize={cardSize}
             />
           )}
         </div>
