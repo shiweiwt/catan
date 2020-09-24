@@ -36,7 +36,7 @@ function Card(props: CardProps) {
             color: props.value == 6 || props.value == 8 ? "#ff0000" : "#000000",
             top: props.top + props.height / 2 - valueWidth / 2,
             left: props.left + props.width / 2 - valueWidth / 2,
-            fontSize: 22,
+            fontSize: valueWidth - 10,
             width: valueWidth,
             height: valueWidth,
             // lineHeight: valueWidth,

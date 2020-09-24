@@ -96,13 +96,17 @@ function App() {
     setValues(shuffleValues());
   };
 
-
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className="App">
         <div
           className="App-header"
-          style={{ display: "block", padding: "20px", width: "100%" }}
+          style={{
+            display: "block",
+            paddingTop: 20,
+            paddingBottom: 20,
+            width: "100%",
+          }}
         >
           Welcome to Catan
         </div>
@@ -129,9 +133,12 @@ function App() {
         <div
           style={{
             position: "relative",
-            border: "2px solid",
+            alignContent: "center",
+            border: "5px solid lightblue",
+            margin: "20px",
+            // left: "20px",
             backgroundColor: "rgba(0,0,255,0.2)",
-            width: cardSize * 9,
+            width: cardSize * 9 - 20,
             height: cardSize * 8,
           }}
         >
