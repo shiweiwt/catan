@@ -1,24 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Board from "./board";
 import useWindowDimensions from "./windowdimension";
-
-var brick = require("./images/brick.png");
-var desert = require("./images/desert.png");
-var wheat = require("./images/wheat.png");
-var ore = require("./images/ore.png");
-var sheep = require("./images/sheep.png");
-var wood = require("./images/wood.png");
-var cardMap: Record<string, string> = {
-  brick: brick,
-  desert: desert,
-  wheat: wheat,
-  ore: ore,
-  sheep: sheep,
-  wood: wood,
-  "": "",
-};
+import querystring from "querystring";
 
 function shuffle(arr: Object[]) {
   for (var i = arr.length - 1; i >= 0; i--) {
@@ -32,27 +17,28 @@ function shuffle(arr: Object[]) {
 
 function shuffleCards() {
   let cs: string[] = [
-    "ore",
-    "ore",
-    "ore",
-    "brick",
-    "brick",
-    "brick",
-    "wheat",
-    "wheat",
-    "wheat",
-    "wheat",
-    "sheep",
-    "sheep",
-    "sheep",
-    "sheep",
-    "wood",
-    "wood",
-    "wood",
-    "wood",
+    "o",
+    "o",
+    "o",
+    "b",
+    "b",
+    "b",
+    "w",
+    "w",
+    "w",
+    "w",
+    "s",
+    "s",
+    "s",
+    "s",
+    "t",
+    "t",
+    "t",
+    "t",
   ];
   shuffle(cs);
-  cs = [...cs.slice(0, 9), "desert", ...cs.slice(9)].map((v) => cardMap[v]);
+  shuffle(cs);
+  cs = [...cs.slice(0, 9), "d", ...cs.slice(9)];
   console.log("generated cards", cs);
   return cs;
 }
@@ -79,25 +65,101 @@ function shuffleValues() {
     12,
   ];
   shuffle(vs);
+  shuffle(vs);
   vs = [...vs.slice(0, 9), 0, ...vs.slice(9)];
   console.log("generated cards", vs);
   return vs;
 }
 
-function App() {
-  const [cards, setCards] = useState<string[]>(shuffleCards());
-  const [values, setValues] = useState<number[]>(shuffleValues());
+interface BoardConfig {
+  cards: string[];
+  values: number[];
+}
 
-  const { height, width } = useWindowDimensions();
+function parseBoard(board: string) {
+  let fs = board.split(",");
+  if (fs.length !== 38) {
+    return null;
+  }
+  let values = fs.slice(19).map((value: string) => Number(value));
+  let b: BoardConfig = {
+    cards: fs.slice(0, 19),
+    values: values,
+  };
+  return b;
+}
+
+function generateBoardString(board: BoardConfig) {
+  let fs = [...board.cards, ...board.values.map((v) => v.toString())];
+  return fs.join(",");
+}
+
+function App() {
+  const [cards, setCards] = useState<string[]>([]);
+  const [values, setValues] = useState<number[]>([]);
+  const [boardUrl, setBoardUrl] = useState<string>("");
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const { width } = useWindowDimensions();
   const cardSize = width / 9;
 
   let generateBoard = () => {
-    setCards(shuffleCards());
-    setValues(shuffleValues());
+    let cards = shuffleCards();
+    let values = shuffleValues();
+    let location = window.location;
+    let board: BoardConfig = {
+      cards: cards,
+      values: values,
+    };
+    let boardUrl =
+      `${location.protocol}://${location.host}${location.pathname}?b=` +
+      generateBoardString(board);
+    console.log("board url:", boardUrl);
+    setBoardUrl(boardUrl);
+    setCards(cards);
+    setValues(values);
   };
 
+  let shareBoardUrl = (e) => {
+    if (textAreaRef && textAreaRef.current) {
+      textAreaRef.current.select();
+      document.execCommand("copy");
+      // This is just personal preference.
+      // I prefer to not show the whole text area selected.
+      e.target.focus();
+      console.log("boardURL copied");
+    }
+  };
+
+  useEffect(() => {
+    let location = window.location;
+    console.log("location: ", location.search);
+    let board: BoardConfig | null = null;
+    if (location.search && location.search.length > 1) {
+      let query = querystring.parse(location.search.slice(1));
+      let boardParam = query.b;
+      if (boardParam) {
+        let data = typeof boardParam == "string" ? boardParam : boardParam[0];
+        console.log("data", data);
+        board = parseBoard(data);
+        console.log("parsed board", board);
+      }
+    }
+
+    if (!board) {
+      board = { cards: shuffleCards(), values: shuffleValues() };
+    }
+    setCards(board.cards);
+    setValues(board.values);
+    let boardUrl =
+      `${location.protocol}://${location.host}${location.pathname}?b=` +
+      generateBoardString(board);
+    console.log("board url:", boardUrl);
+    setBoardUrl(boardUrl);
+  }, [window.location]);
+
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
         <div
           className="App-header"
@@ -121,14 +183,49 @@ function App() {
               // height: 100,
               font: "Serif 24px bold italic",
               padding: 10,
-              margin: 10,
+              marginTop: 10,
               color: "white",
               backgroundColor: "#4a74c5",
               borderRadius: "10px",
             }}
           >
-            Click here to Shuffle Board
+            Shuffle Board
           </button>
+        </div>
+        <div
+          style={{
+            alignContent: "center",
+          }}
+        >
+          <button
+            onClick={shareBoardUrl}
+            style={{
+              // height: 100,
+              font: "Serif 24px bold italic",
+              padding: 10,
+              marginTop: 10,
+              color: "white",
+              backgroundColor: "#4a74c5",
+              borderRadius: "10px",
+            }}
+          >
+            Copy Board URL to Clipboard
+          </button>
+        </div>
+        <div>
+          <form>
+            <textarea
+              ref={textAreaRef}
+              style={{
+                font: "ariel",
+                border: "none",
+                // display: "block",
+                width: width / 2,
+                alignContent: "center",
+              }}
+              value={boardUrl}
+            />
+          </form>
         </div>
         <div
           style={{
@@ -138,8 +235,8 @@ function App() {
             margin: "20px",
             // left: "20px",
             backgroundColor: "rgba(0,0,255,0.2)",
-            width: cardSize * 9 - 20,
-            height: cardSize * 8,
+            width: cardSize * 8.67 + 50,
+            height: cardSize * 8 + 50,
           }}
         >
           {cards && values && (
@@ -153,7 +250,7 @@ function App() {
           )}
         </div>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

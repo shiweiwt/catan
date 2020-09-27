@@ -1,4 +1,5 @@
 import React from "react";
+import { cardMap } from "./cardmap";
 
 interface CardProps {
   image: string;
@@ -14,7 +15,7 @@ function Card(props: CardProps) {
   return (
     <div>
       <img
-        src={props.image}
+        src={cardMap[props.image]}
         alt={props.image}
         style={{
           position: "absolute",
@@ -33,10 +34,11 @@ function Card(props: CardProps) {
             border: "solid #b3b3b3 2px",
             borderRadius: "50%",
             backgroundColor: "#ffffff",
-            color: props.value == 6 || props.value == 8 ? "#ff0000" : "#000000",
+            color:
+              props.value === 6 || props.value === 8 ? "#ff0000" : "#000000",
             top: props.top + props.height / 2 - valueWidth / 2,
             left: props.left + props.width / 2 - valueWidth / 2,
-            fontSize: valueWidth - 10,
+            fontSize: valueWidth - 5,
             width: valueWidth,
             height: valueWidth,
             // lineHeight: valueWidth,
