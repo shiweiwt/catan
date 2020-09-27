@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/catan/static/css/main.2a2c946e.chunk.css",
-    "main.js": "/catan/static/js/main.5df52408.chunk.js",
-    "main.js.map": "/catan/static/js/main.5df52408.chunk.js.map",
+    "main.js": "/catan/static/js/main.c0b46e53.chunk.js",
+    "main.js.map": "/catan/static/js/main.c0b46e53.chunk.js.map",
     "runtime-main.js": "/catan/static/js/runtime-main.0b02ec9a.js",
     "runtime-main.js.map": "/catan/static/js/runtime-main.0b02ec9a.js.map",
     "static/js/2.0b1be7b3.chunk.js": "/catan/static/js/2.0b1be7b3.chunk.js",
     "static/js/2.0b1be7b3.chunk.js.map": "/catan/static/js/2.0b1be7b3.chunk.js.map",
     "index.html": "/catan/index.html",
-    "precache-manifest.19689b083fc1bba6c8dfd11b196426df.js": "/catan/precache-manifest.19689b083fc1bba6c8dfd11b196426df.js",
+    "precache-manifest.5da0ed668e0c5a2cba5fd78b0a4ad3f4.js": "/catan/precache-manifest.5da0ed668e0c5a2cba5fd78b0a4ad3f4.js",
     "service-worker.js": "/catan/service-worker.js",
     "static/css/main.2a2c946e.chunk.css.map": "/catan/static/css/main.2a2c946e.chunk.css.map",
     "static/js/2.0b1be7b3.chunk.js.LICENSE.txt": "/catan/static/js/2.0b1be7b3.chunk.js.LICENSE.txt",
@@ -23,6 +23,6 @@
     "static/js/runtime-main.0b02ec9a.js",
     "static/js/2.0b1be7b3.chunk.js",
     "static/css/main.2a2c946e.chunk.css",
-    "static/js/main.5df52408.chunk.js"
+    "static/js/main.c0b46e53.chunk.js"
   ]
 }

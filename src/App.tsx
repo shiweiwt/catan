@@ -101,7 +101,7 @@ function App() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const { width } = useWindowDimensions();
-  const cardSize = width / 9;
+  const cardSize = width / 10;
 
   let generateBoard = () => {
     let cards = shuffleCards();
@@ -233,10 +233,10 @@ function App() {
             alignContent: "center",
             border: "5px solid lightblue",
             margin: "20px",
-            // left: "20px",
+            left: "20px",
             backgroundColor: "rgba(0,0,255,0.2)",
-            width: cardSize * 8.67 + 50,
-            height: cardSize * 8 + 50,
+            width: cardSize * 9,
+            height: cardSize * 9,
           }}
         >
           {cards && values && (
