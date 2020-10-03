@@ -15,7 +15,7 @@ interface Coord {
 }
 
 function Board(props: BoardProps) {
-  var top = 0;
+  var top = props.top;
   var left = props.left;
   var cardSize = props.cardSize;
   var factor = 1.732 / 2;

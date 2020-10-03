@@ -41,7 +41,8 @@ function Card(props: CardProps) {
             fontSize: valueWidth - 5,
             width: valueWidth,
             height: valueWidth,
-            // lineHeight: valueWidth,
+            lineHeight: valueWidth + "px",
+            textAlign: "center",
           }}
         >
           {props.value}

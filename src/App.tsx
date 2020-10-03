@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Button, Jumbotron, Container, Row, Col } from "react-bootstrap";
 import "./App.css";
 import Board from "./board";
 import useWindowDimensions from "./windowdimension";
@@ -99,9 +100,13 @@ function App() {
   const [values, setValues] = useState<number[]>([]);
   const [boardUrl, setBoardUrl] = useState<string>("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const { width } = useWindowDimensions();
-  const cardSize = width / 10;
+  const { width: windowWidth } = useWindowDimensions();
+  const width = containerRef.current
+    ? containerRef.current.clientWidth
+    : windowWidth;
+  const cardSize = width / 9;
 
   let generateBoard = () => {
     let cards = shuffleCards();
@@ -124,8 +129,6 @@ function App() {
     if (textAreaRef && textAreaRef.current) {
       textAreaRef.current.select();
       document.execCommand("copy");
-      // This is just personal preference.
-      // I prefer to not show the whole text area selected.
       e.target.focus();
       console.log("boardURL copied");
     }
@@ -156,100 +159,63 @@ function App() {
       generateBoardString(board);
     console.log("board url:", boardUrl);
     setBoardUrl(boardUrl);
-  }, [window.location]);
+  }, []);
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <div className="App">
-        <div
-          className="App-header"
-          style={{
-            display: "block",
-            paddingTop: 20,
-            paddingBottom: 20,
-            width: "100%",
-          }}
-        >
-          Welcome to Catan
-        </div>
-        <div
-          style={{
-            alignContent: "center",
-          }}
-        >
-          <button
-            onClick={generateBoard}
-            style={{
-              // height: 100,
-              font: "Serif 24px bold italic",
-              padding: 10,
-              marginTop: 10,
-              color: "white",
-              backgroundColor: "#4a74c5",
-              borderRadius: "10px",
-            }}
-          >
-            Shuffle Board
-          </button>
-        </div>
-        <div
-          style={{
-            alignContent: "center",
-          }}
-        >
-          <button
-            onClick={shareBoardUrl}
-            style={{
-              // height: 100,
-              font: "Serif 24px bold italic",
-              padding: 10,
-              marginTop: 10,
-              color: "white",
-              backgroundColor: "#4a74c5",
-              borderRadius: "10px",
-            }}
-          >
-            Copy Board URL to Clipboard
-          </button>
-        </div>
-        <div>
-          <form>
-            <textarea
-              ref={textAreaRef}
-              style={{
-                font: "ariel",
-                border: "none",
-                // display: "block",
-                width: width / 2,
-                alignContent: "center",
-              }}
-              value={boardUrl}
-            />
-          </form>
-        </div>
-        <div
+      <Container ref={containerRef} className="p-3">
+        <Jumbotron style={{ textAlign: "center" }}>
+          <h1>Welcome to Catan</h1>
+        </Jumbotron>
+        <Row>
+          <Col>
+            <Button onClick={generateBoard}>Shuffle Board</Button>
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row style={{ marginTop: "2px" }}>
+          <Col sm="3">
+            <Button onClick={shareBoardUrl}>Copy Board URL to Clipboard</Button>
+          </Col>
+          <Col sm="8">
+            <form>
+              <textarea
+                ref={textAreaRef}
+                style={{
+                  font: "ariel",
+                  border: "none",
+                  width: (width * 8) / 12,
+                  alignContent: "center",
+                }}
+                value={boardUrl}
+              />
+            </form>
+          </Col>
+        </Row>
+        <Row
           style={{
             position: "relative",
             alignContent: "center",
             border: "5px solid lightblue",
-            margin: "20px",
-            left: "20px",
+            marginTop: "2px",
             backgroundColor: "rgba(0,0,255,0.2)",
             width: cardSize * 9,
             height: cardSize * 9,
           }}
         >
-          {cards && values && (
-            <Board
-              cards={cards}
-              values={values}
-              left={0}
-              top={0}
-              cardSize={cardSize}
-            />
-          )}
-        </div>
-      </div>
+          <Col>
+            {cards && values && (
+              <Board
+                cards={cards}
+                values={values}
+                left={0}
+                top={-cardSize * 4}
+                cardSize={cardSize}
+              />
+            )}
+          </Col>
+        </Row>
+      </Container>
     </Router>
   );
 }
