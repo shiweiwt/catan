@@ -1,6 +1,18 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Generator for Game of Catan
+
+Had fun playing Catan games with kids.
+Manually creating a game board layout may be fun too but takes too much time.
+Hopefully be able to spend more time playing it than making a balanced board ...
+
+learning a bit react as well.
+
+## Static page hosted by bitbucket
+
+[click here](https://godoros.bitbucket.io/catan/)
 
 ## Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
@@ -42,3 +54,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
